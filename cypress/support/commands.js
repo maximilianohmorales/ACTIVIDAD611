@@ -1,34 +1,36 @@
-Cypress.Commands.add('registroDatosPersonales', (nombre, apellido, telefono, dni) => {
-  cy.log('Ingresando nombres, apellidos, celular y dni');
-  cy.get('[data-cy="input-nombres"]').clear().type(nombre);
-  cy.get('[data-cy="input-apellido"]').clear().type(apellido);
-  cy.get('[data-cy="input-telefono"]').clear().type(telefono);
-  cy.get('[data-cy="input-dni"]').clear().type(dni);
-});
+Cypress.Commands.add('registroDatosPersonales', (userData) => {
 
-Cypress.Commands.add('seleccionarUbicación', (provincia, localidad) => {
-  cy.log('Seleccionar provincia y localidad');
-  cy.get('[data-cy="select-provincia"]').clear().type(provincia);
-  cy.get('ul > li > span').contains(provincia).click();
-  cy.get('[data-cy="select-localidad"]').clear().type(localidad);
-  cy.get('ul > li > span').contains(localidad).click();
-});
+  if (userData.razonSocial) {
+    cy.get('[data-cy="input-razon-social"]').type(userData.razonSocial); // [cite: 67]
+  }
+  if (userData.cuit) {
+    cy.get('[data-cy="input-cuit"]').type(userData.cuit);
+  }
+  if (userData.provincia) {
+    cy.get('[data-cy="select-provincia"]').type(userData.provincia +'{enter}');
+  }
+  if (userData.localidad) {
+    cy.get('[data-cy="select-localidad"]').type(userData.localidad +'{enter}'); // [cite: 67]
+  }
 
-Cypress.Commands.add('registroFechaNacimiento', (day, month, year) => {
-  cy.log('Ingresando fecha de nacimiento');
-  cy.get('[data-cy="input-fecha-nacimiento"] [data-type="day"]').clear().type(day);
-  cy.get('[data-cy="input-fecha-nacimiento"] [data-type="month"]').clear().type(month);
-  cy.get('[data-cy="input-fecha-nacimiento"] [data-type="year"]').clear().type(year);
-});
+  if (userData.direccion) {
+    cy.get('[data-cy="input-direccion"]').type(userData.direccion);
+  }
 
-Cypress.Commands.add('registroEmail', (email) => {
-  cy.log('Ingresando mail y confirmación');
-  cy.get('[data-cy="input-email"]').clear().type(email);
-  cy.get('[data-cy="input-confirmar-email"]').clear().type(email);
-});
+  if (userData.telefono) {
+    cy.get('[data-cy="input-telefono"]').type(userData.telefono);
+  }
 
-Cypress.Commands.add('registroContraseña', (password) => {
-  cy.log('Ingresando contraseña y confirmación');
-  cy.get('[data-cy="input-password"]').clear().type(password);
-  cy.get('[data-cy="input-repetir-password"]').clear().type(password);
+  if (userData.email) {
+    cy.get('[data-cy="input-email"]').type(userData.email);
+  }
+  if (userData.email) {
+    cy.get('[data-cy="input-confirmar-email"]').type(userData.email);
+  }
+   if (userData.contraseña) {
+    cy.get('[data-cy="input-password"]').type(userData.contraseña);
+  }
+  if (userData.contraseña) {
+    cy.get('[data-cy="input-repetir-password"]').type(userData.contraseña);
+  }
 });
